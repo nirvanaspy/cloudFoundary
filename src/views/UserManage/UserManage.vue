@@ -190,7 +190,8 @@ export default {
   },
   methods: {
     getUserList() {
-      this.userList = JSON.parse(localStorage.getItem('userList'))
+      let list = JSON.parse(localStorage.getItem('userList'))
+      this.userList = list ? list : []
     },
     getAppList() {
       getApplication().then(res => {
