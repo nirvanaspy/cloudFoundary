@@ -18,7 +18,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: '云仿真多工况',
+      default: 'CloudFoundry',
       required: false
     },
     showTitle: {

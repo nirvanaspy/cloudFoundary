@@ -1,4 +1,4 @@
-# rengu-admin-template
+# CloudFoundry
 
 ## Project setup
 ```

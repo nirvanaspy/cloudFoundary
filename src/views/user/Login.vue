@@ -18,16 +18,39 @@
             type="error"
             showIcon
             style="margin-bottom: 24px;"
-            message="账户或密码错误（admin)"
+            message="账户或密码错误"
           />
           <a-form-item>
             <a-input
               size="large"
               type="text"
-              placeholder="账户: admin"
+              placeholder="项目名称：project"
+              v-decorator="[
+                'project',
+                {
+                  initialValue: 'admin',
+                  rules: [{ required: true, message: '请输入项目名称' }],
+                  validateTrigger: 'blur'
+                }
+              ]"
+            >
+              <a-icon
+                slot="prefix"
+                type="project"
+                :style="{ color: 'rgba(0,0,0,.25)' }"
+              />
+            </a-input>
+          </a-form-item>
+
+          <a-form-item>
+            <a-input
+              size="large"
+              type="text"
+              placeholder="账户: root"
               v-decorator="[
                 'username',
                 {
+                  initialValue: 'root',
                   rules: [
                     { required: true, message: '请输入帐户名或邮箱地址' },
                     { validator: handleUsernameOrEmail }
@@ -49,10 +72,11 @@
               size="large"
               type="password"
               autocomplete="false"
-              placeholder="密码: admin"
+              placeholder="密码: root"
               v-decorator="[
                 'password',
                 {
+                  initialValue: 'root',
                   rules: [{ required: true, message: '请输入密码' }],
                   validateTrigger: 'blur'
                 }
@@ -65,70 +89,6 @@
               />
             </a-input>
           </a-form-item>
-        </a-tab-pane>
-        <a-tab-pane key="tab2" tab="手机号登录">
-          <a-form-item>
-            <a-input
-              size="large"
-              type="text"
-              placeholder="手机号"
-              v-decorator="[
-                'mobile',
-                {
-                  rules: [
-                    {
-                      required: true,
-                      pattern: /^1[34578]\d{9}$/,
-                      message: '请输入正确的手机号'
-                    }
-                  ],
-                  validateTrigger: 'change'
-                }
-              ]"
-            >
-              <a-icon
-                slot="prefix"
-                type="mobile"
-                :style="{ color: 'rgba(0,0,0,.25)' }"
-              />
-            </a-input>
-          </a-form-item>
-
-          <a-row :gutter="16">
-            <a-col class="gutter-row" :span="16">
-              <a-form-item>
-                <a-input
-                  size="large"
-                  type="text"
-                  placeholder="验证码"
-                  v-decorator="[
-                    'captcha',
-                    {
-                      rules: [{ required: true, message: '请输入验证码' }],
-                      validateTrigger: 'blur'
-                    }
-                  ]"
-                >
-                  <a-icon
-                    slot="prefix"
-                    type="mail"
-                    :style="{ color: 'rgba(0,0,0,.25)' }"
-                  />
-                </a-input>
-              </a-form-item>
-            </a-col>
-            <a-col class="gutter-row" :span="8">
-              <a-button
-                class="getCaptcha"
-                tabindex="-1"
-                :disabled="state.smsSendBtn"
-                @click.stop.prevent="getCaptcha"
-                v-text="
-                  (!state.smsSendBtn && '获取验证码') || state.time + ' s'
-                "
-              ></a-button>
-            </a-col>
-          </a-row>
         </a-tab-pane>
       </a-tabs>
 
@@ -233,24 +193,25 @@ export default {
 
       const validateFieldsKey =
         customActiveKey === 'tab1'
-          ? ['username', 'password']
+          ? ['username', 'password', 'project']
           : ['mobile', 'captcha']
       validateFields(validateFieldsKey, { force: true }, (err, values) => {
         const loginParams = { ...values }
         const loginForm = qs.stringify({
           username: loginParams.username,
           password: loginParams.password,
+          project: loginParams.project,
           grant_type: 'password',
           scope: 'SCOPES',
           client_id: 'OAUTH_CLIENT_ID',
           enctype: 'OAUTH_CLIENT_ID'
         })
-        console.log(loginForm)
+        console.log(loginParams)
         if (!err) {
           delete loginParams.username
           loginParams[!state.loginType ? 'email' : 'username'] = values.username
           // loginParams.password = md5(values.password)
-          Login(loginForm)
+          Login(loginParams)
             .then(res => this.loginSuccess(res))
             .catch(err => this.requestFailed(err))
             .finally(() => {

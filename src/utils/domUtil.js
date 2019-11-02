@@ -16,4 +16,4 @@ export const setDocumentTitle = function(title) {
   }
 }
 
-export const domTitle = '云仿真多工况'
+export const domTitle = 'CloudFoundry'

@@ -5,11 +5,11 @@
         <div class="header">
           <a href="/">
             <img src="~@/assets/logo.svg" class="logo" alt="logo" />
-            <span class="title">云仿真多工况系统</span>
+            <span class="title">资源监控与可视化部署</span>
           </a>
         </div>
         <div class="desc">
-          Cloud Simulation Platform
+          Open Source Cloud Application Platform
         </div>
       </div>
 

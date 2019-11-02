@@ -38,7 +38,7 @@ const user = {
     // 登录
     Login({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
-        login(userInfo)
+        /*login(userInfo)
           .then(response => {
             const result = response.data
             Vue.ls.set(
@@ -51,15 +51,23 @@ const user = {
           })
           .catch(error => {
             reject(error)
-          })
+          })*/
+        console.log(userInfo)
+        if (userInfo.username !== 'root' || userInfo.password !== 'root') {
+          reject()
+        } else {
+          Vue.ls.set(ACCESS_TOKEN, 'access_token', 7 * 24 * 60 * 60 * 1000)
+          commit('SET_TOKEN', 'access_token')
+          resolve()
+        }
       })
     },
 
     // 获取用户信息
     GetInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
-        const token = Vue.ls.get(ACCESS_TOKEN)
-        const result = jwt.decode(token)
+        // const token = Vue.ls.get(ACCESS_TOKEN)
+        // const result = jwt.decode(token)
         // const rolesSet = result.authorities
         // if (rolesSet.length > 1) {
         //   result.role = {
@@ -68,6 +76,9 @@ const user = {
         //     permissionList: ['dashboard', 'exception', 'result', 'profile', 'table', 'form', 'order', 'permission', 'role', 'table', 'user', 'support']
         //   }
         // }
+        const result = {
+          username: 'root'
+        }
         result.role = {
           id: 'admin',
           name: '管理员',
