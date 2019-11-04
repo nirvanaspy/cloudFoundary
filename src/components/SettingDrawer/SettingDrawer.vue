@@ -22,7 +22,7 @@
                 @click="handleMenuTheme('dark')"
               >
                 <img
-                  src="https://gw.alipayobjects.com/zos/rmsportal/LCkqqYNmvBEbokSDscrm.svg"
+                  src="./image/1.svg"
                   alt="dark"
                 />
                 <div
@@ -43,7 +43,7 @@
                 @click="handleMenuTheme('light')"
               >
                 <img
-                  src="https://gw.alipayobjects.com/zos/rmsportal/jpRkZQMyYRryryPNtyIC.svg"
+                  src="./image/2.svg"
                   alt="light"
                 />
                 <div
@@ -93,7 +93,7 @@
                 @click="handleLayout('sidemenu')"
               >
                 <img
-                  src="https://gw.alipayobjects.com/zos/rmsportal/JopDzEhOqwOjeNTXkoje.svg"
+                  src="./image/3.svg"
                   alt="sidemenu"
                 />
                 <div
@@ -114,7 +114,7 @@
                 @click="handleLayout('topmenu')"
               >
                 <img
-                  src="https://gw.alipayobjects.com/zos/rmsportal/KDNDBbriJhLwuqMoxcAr.svg"
+                  src="./image/4.svg"
                   alt="topmenu"
                 />
                 <div
@@ -236,7 +236,7 @@
           </div>
         </div>
         <a-divider />
-        <div :style="{ marginBottom: '24px' }">
+        <!--<div :style="{ marginBottom: '24px' }">
           <a-button @click="doCopy" icon="copy" block>拷贝设置</a-button>
           <a-alert type="warning" :style="{ marginTop: '24px' }">
             <span slot="message">
@@ -248,7 +248,7 @@
               >
             </span>
           </a-alert>
-        </div>
+        </div>-->
       </div>
       <div class="setting-drawer-index-handle" @click="toggle">
         <a-icon type="setting" v-if="!visible" />

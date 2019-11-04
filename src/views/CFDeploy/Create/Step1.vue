@@ -6,7 +6,9 @@
           placeholder=""
           v-decorator="[
             'IP',
-            { rules: [{ required: true, message: 'IP必须填写' }] }
+            {
+              rules: [{ required: true, message: 'IP必须填写' }]
+            }
           ]"
         >
         </a-input>
@@ -31,7 +33,10 @@
         >
         </a-input>
       </a-form-item>
-      <a-form-item :wrapperCol="{ span: 19, offset: 5 }">
+      <a-form-item
+        :wrapperCol="{ span: 19, offset: 5 }"
+        style="text-align: right;"
+      >
         <a-button type="primary" @click="nextStep">下一步</a-button>
       </a-form-item>
     </a-form>
@@ -46,7 +51,12 @@ export default {
     return {
       labelCol: { lg: { span: 5 }, sm: { span: 5 } },
       wrapperCol: { lg: { span: 19 }, sm: { span: 19 } },
-      form: this.$form.createForm(this)
+      form: this.$form.createForm(this),
+      params: {
+        IP: '',
+        username: '',
+        password: ''
+      }
     }
   },
   methods: {
@@ -57,6 +67,7 @@ export default {
       // 先校验，通过表单校验后，才进入下一步
       validateFields((err, values) => {
         const params = { ...values }
+        this.params = params
         if (!err) {
           if (params.username !== 'root' && params.password !== 'root') {
             this.$message.error('对不起，用户名或密码错误')

@@ -55,11 +55,18 @@
           ]"
         />
       </a-form-item>
-      <a-form-item :wrapperCol="{ span: 19, offset: 5 }">
-        <a-button :loading="loading" type="primary" @click="nextStep"
-          >提交</a-button
+      <a-form-item
+        :wrapperCol="{ span: 19, offset: 5 }"
+        style="text-align: right;"
+      >
+        <a-button @click="prevStep">上一步</a-button>
+        <a-button
+          :loading="loading"
+          type="primary"
+          @click="nextStep"
+          style="margin-left: 8px"
+          >下一步</a-button
         >
-        <a-button style="margin-left: 8px" @click="prevStep">上一步</a-button>
       </a-form-item>
     </a-form>
   </div>

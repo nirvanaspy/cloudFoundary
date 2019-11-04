@@ -273,7 +273,13 @@
           ]"
         />
       </a-form-item>
-      <a-form-item :wrapperCol="{ span: 19, offset: 5 }">
+      <a-form-item
+        :wrapperCol="{ span: 19, offset: 5 }"
+        style="text-align: right;"
+      >
+        <a-button @click="prevStep" style="margin-right: 10px;"
+          >上一步</a-button
+        >
         <a-button :loading="loading" type="primary" @click="finish"
           >提交</a-button
         >
@@ -299,6 +305,9 @@ export default {
     }
   },
   methods: {
+    prevStep() {
+      this.$emit('prevStep')
+    },
     finish() {
       const {
         form: { validateFields }

@@ -56,6 +56,16 @@ export const asyncRouterMap = [
               keepAlive: true,
               permission: ['dashboard']
             }
+          },
+          {
+            path: '/Images',
+            name: 'Images',
+            component: () => import('@/views/DataTemplate/DataTemplate'),
+            meta: {
+              title: '镜像',
+              keepAlive: true,
+              permission: ['dashboard']
+            }
           }
         ]
       },
@@ -91,17 +101,6 @@ export const asyncRouterMap = [
             }
           }
         ]
-      },
-      {
-        path: '/Images',
-        name: 'Images',
-        component: () => import('@/views/DataTemplate/DataTemplate'),
-        meta: {
-          title: '镜像',
-          keepAlive: true,
-          icon: 'file',
-          permission: ['dashboard']
-        }
       },
       {
         path: '/UserManage',

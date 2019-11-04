@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="margin: 20px 0 10px 0;">
-      <h2>大数据模版</h2>
+      <h2>镜像模版</h2>
     </div>
     <div style="text-align:right;margin-bottom: 4px;">
       <a-button
@@ -39,20 +39,26 @@
         </span>
       </template>
     </a-table>
-    <a-modal title="新建集群" :width="800" v-model="visible" @ok="handleOk">
+    <a-modal
+      title="新建镜像"
+      :width="800"
+      v-model="visible"
+      @ok="handleOk"
+      :destroyOnClose="true"
+    >
       <a-form :form="form">
         <a-form-item
           :label-col="formItemLayout.labelCol"
           :wrapper-col="formItemLayout.wrapperCol"
-          label="名称"
+          label="镜像名称"
         >
           <a-input
-            placeholder="请输入栈名称"
+            placeholder="请输入镜像名称"
             v-decorator="[
               'name',
               {
                 initialValue: '',
-                rules: [{ required: true, message: '请输入栈名称' }],
+                rules: [{ required: true, message: '请输入镜像名称' }],
                 validateTrigger: 'blur'
               }
             ]"
@@ -61,22 +67,26 @@
         <a-form-item
           :label-col="formItemLayout.labelCol"
           :wrapper-col="formItemLayout.wrapperCol"
-          label="所有者"
+          label="镜像资源"
         >
-          <a-select
-            placeholder="请选所有者"
-            style="width: 100%; margin-right: 8px;"
+          <a-upload
+            name="file"
+            :multiple="false"
+            action="127.0.0.1"
+            :headers="headers"
+            @change="handleChange"
+            accept=".iso,.isz,.esd,.wim,.gho,.dmg,.mpf"
             v-decorator="[
-              'owner',
+              'file',
               {
                 initialValue: '',
-                rules: [{ required: true, message: '请选择所有者' }],
+                rules: [{ required: true, message: '请选择镜像文件' }],
                 validateTrigger: 'blur'
               }
             ]"
           >
-            <a-select-option value="0">root</a-select-option>
-          </a-select>
+            <a-button> <a-icon type="upload" /> 选择镜像文件 </a-button>
+          </a-upload>
         </a-form-item>
       </a-form>
     </a-modal>
@@ -126,6 +136,9 @@ export default {
   name: 'CFCluster',
   data() {
     return {
+      headers: {
+        authorization: 'authorization-text'
+      },
       columns: [
         {
           title: '镜像名称',
@@ -239,14 +252,24 @@ export default {
         attributeList: []
       }
     },
+    handleChange(info) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList)
+      }
+      if (info.file.status === 'done') {
+        this.$message.success(`${info.file.name} 文件上传成功！`)
+      } else if (info.file.status === 'error') {
+        this.$message.error(`${info.file.name} 文件上传失败...`)
+      }
+    },
     handleAdd() {
-      this.$notification['error']({
+      /*this.$notification['error']({
         message: '错误',
         description: '服务器未响应，请稍后再试',
         duration: 4
-      })
+      })*/
       this.resetForm()
-      // this.visible = true
+      this.visible = true
     },
     handleOk() {
       this.form.validateFields((err, values) => {

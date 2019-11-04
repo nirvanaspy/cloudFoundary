@@ -6,13 +6,13 @@
       <a-step title="输入配置信息" />
     </a-steps>
     <div class="content">
-      <step1 v-if="currentTab === 0" @nextStep="nextStep" />
+      <step1 v-show="currentTab === 0" @nextStep="nextStep" />
       <step2
-        v-if="currentTab === 1"
+        v-show="currentTab === 1"
         @nextStep="nextStep"
         @prevStep="prevStep"
       />
-      <step3 v-if="currentTab === 2" @prevStep="prevStep" @finish="finish" />
+      <step3 v-show="currentTab === 2" @prevStep="prevStep" @finish="finish" />
     </div>
   </a-card>
 </template>
